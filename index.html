@@ -10,7 +10,7 @@
             font-family: Arial, sans-serif;
             background: #f4f4f4;
             text-align: center;
-            padding-top: 80px;
+            margin: 0; padding: 0; color: #fff;
         }
 
         .container {
@@ -41,10 +41,30 @@
         .button:hover {
             background: #005ea6;
         }
+        * { box-sizing: border-box; }
+        body { background: #101b38; }
+        .parallax-background { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: -1; background: linear-gradient(#101b38, #37598b); }
+        .parallax-layer { position: absolute; inset: -25%; will-change: transform; }
+        .stars { background-image: radial-gradient(circle, #ffffffaa 1px, transparent 2px); background-size: 90px 90px; }
+        .glow { background: radial-gradient(ellipse at 70% 35%, #85d9ff66, transparent 40%); }
+        .mountains { inset: 35% -25% -45%; background: linear-gradient(135deg, #244b70, #0b152d); clip-path: polygon(0 60%, 20% 15%, 35% 45%, 55% 0, 75% 40%, 90% 10%, 100% 35%, 100% 100%, 0 100%); }
+        .hero { min-height: 100vh; display: grid; place-items: center; padding: 60px 20px; }
+        .container { color: #333; width: 500px; max-width: 100%; background: #fffffff0; }
+        .scroll-section { min-height: 80vh; padding: 100px 24px; background: #101b38e6; }
+        .scroll-section h2 { font-size: clamp(28px, 5vw, 48px); }
+        .scroll-section p { line-height: 1.7; }
+        @media (prefers-reduced-motion: reduce) { .parallax-layer { will-change: auto; } }
     </style>
 </head>
 
 <body>
+    <div class="parallax-background" aria-hidden="true">
+        <div class="parallax-layer stars" data-speed="0.12"></div>
+        <div class="parallax-layer glow" data-speed="0.22"></div>
+        <div class="parallax-layer mountains" data-speed="0.35"></div>
+    </div>
+    <main>
+    <section class="hero" aria-label="Welcome">
 
     <div class="container">
         <h1>World Hello</h1>
@@ -58,7 +78,32 @@
         <p id="message"></p>
     </div>
 
+    </section>
+    <section class="scroll-section">
+        <h2>Keep exploring</h2>
+        <p>Scroll to watch the stars and mountains move at different speeds.</p>
+        <a class="button" href="new-page.html">Visit the new page</a>
+    </section>
+    </main>
     <script>
+        const layers = document.querySelectorAll('[data-speed]');
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        let framePending = false;
+        function updateParallax() {
+            layers.forEach(layer => {
+                const offset = reducedMotion.matches ? 0 : window.scrollY * Number(layer.dataset.speed);
+                layer.style.transform = `translateY(${offset}px)`;
+            });
+            framePending = false;
+        }
+        window.addEventListener('scroll', () => {
+            if (!framePending) {
+                framePending = true;
+                window.requestAnimationFrame(updateParallax);
+            }
+        }, { passive: true });
+        reducedMotion.addEventListener('change', updateParallax);
+        updateParallax();
         function showMessage() {
             document.getElementById("message").innerHTML =
                 "Nice try! But I said don't click me!";
