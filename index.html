@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Sample Project</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            text-align: center;
+            padding-top: 80px;
+        }
+
+        .container {
+            background: white;
+            width: 500px;
+            max-width: 90%;
+            margin: auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        button {
+            background: #0078d4;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #005ea6;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Hello GitHub!</h1>
+
+        <p>This is my first sample HTML project.</p>
+
+        <button onclick="showMessage()">
+            Click Me
+        </button>
+
+        <p id="message"></p>
+    </div>
+
+    <script>
+        function showMessage() {
+            document.getElementById("message").innerHTML =
+                "Your HTML and JavaScript are working!";
+        }
+    </script>
+
+</body>
+</html>
