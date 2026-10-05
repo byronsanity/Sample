@@ -27,16 +27,18 @@
             color: #333;
         }
 
-        button {
+        .button {
             background: #0078d4;
             color: white;
             border: none;
             padding: 12px 20px;
             border-radius: 6px;
             cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
         }
 
-        button:hover {
+        .button:hover {
             background: #005ea6;
         }
     </style>
@@ -49,9 +51,9 @@
 
         <p>aaaaaaaaaaaaaaaaa</p>
 
-        <button onclick="showMessage()">
+        <a class="button" href="new-page.html">
             Dont Click Me
-        </button>
+        </a>
 
         <p id="message"></p>
     </div>
